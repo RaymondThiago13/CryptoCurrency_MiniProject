@@ -1,4 +1,4 @@
-package com.example.cryptocurrency_miniproject.ui.theme.screens
+package com.example.cryptocurrency_miniproject.ui.screens
 
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
@@ -32,7 +32,7 @@ fun CryptoGridScreen(
     uiState: CryptoUIState,
     viewModel: CryptoViewModel,
     onCryptoClick: (Crypto) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
 
     var searchText by remember {
@@ -50,20 +50,18 @@ fun CryptoGridScreen(
             modifier = Modifier.fillMaxWidth().padding(8.dp)
         )
 
-        //CONFIG depending on the orientation of the screen
-        val configuration = LocalConfiguration.current
-        val columns = if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            4
-        } else {
-            2
-        }
-
         val dataToShow =
             if (searchText.isEmpty())
                 uiState.cryptos
             else
                 uiState.searchResults
 
+        val configuration = LocalConfiguration.current
+        val columns =
+            if (configuration.orientation ==
+                Configuration.ORIENTATION_LANDSCAPE)
+                5
+            else 3
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(columns),
@@ -82,10 +80,10 @@ fun CryptoGridScreen(
 
 @Composable
 fun CryptoGridItem(crypto: Crypto, onCryptoClick: (Crypto) -> Unit) {
-    Card(modifier = Modifier.padding(8.dp).clickable { onCryptoClick(crypto) }) {
+    Card(modifier = Modifier.padding(8.dp).fillMaxWidth().clickable { onCryptoClick(crypto) }) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(8.dp).fillMaxWidth()
         ) {
             AsyncImage(
                 model = crypto.image,
