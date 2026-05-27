@@ -58,7 +58,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
         Button(
             onClick = {
                 if(
-                    username=="admin"
+                    username=="crypto"
                     &&
                     password=="1234"
                 ){
